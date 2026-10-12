@@ -1,0 +1,32 @@
+
+<div class="list-panel">
+  <div class="list-header">
+    <div>
+      <h2>All Students</h2>
+      <p>Manage your students, view details and track their performance.</p>
+    </div>
+    <button class="btn-add">+ Add Student</button>
+  </div>
+
+  <input
+    type="text"
+    class="search-box"
+    placeholder="Search by name or course..."
+    [value]="searchTerm()"
+    (input)="onSearchChange($any($event.target).value)"
+  />
+
+  @if (filteredStudents().length > 0) {
+    <div class="grid">
+      @for (student of filteredStudents(); track student.id) {
+        <app-student-card
+          [student]="student"
+          (viewDetails)="onView($event)"
+          (deleteStudent)="onDelete($event)"
+        ></app-student-card>
+      }
+    </div>
+  } @else {
+    <p class="empty-state">No students match your search.</p>
+  }
+</div>

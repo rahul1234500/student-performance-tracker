@@ -1,0 +1,48 @@
+@if (student(); as s) {
+  <div class="details-panel">
+    <div class="details-header">
+      <h2>Student Details</h2>
+      <button class="close-btn" (click)="onClose()">✕</button>
+    </div>
+
+    <img src="{{ s.imgPath }}" alt="{{ s.name }}" class="avatar-large" />
+    <h3 class="name">{{ s.name }}</h3>
+
+    @if (isPass()) {
+      <span class="badge pass">PASS</span>
+    } @else {
+      <span class="badge fail">FAIL</span>
+    }
+
+    <div class="detail-row">
+      <span class="label">Name</span>
+      <span class="value">{{ s.name }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Course</span>
+      <span class="value">{{ s.course }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Marks</span>
+      <span class="value">{{ s.marks }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Roll No</span>
+      <span class="value">{{ s.rollNo }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Status</span>
+      <span class="value">{{ isPass() ? 'PASS' : 'FAIL' }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Added On</span>
+      <span class="value">{{ s.addedOn }}</span>
+    </div>
+
+    <button class="close-wide-btn" (click)="onClose()">Close</button>
+  </div>
+} @else {
+  <div class="details-panel empty">
+    <p>Select a student to view details.</p>
+  </div>
+}

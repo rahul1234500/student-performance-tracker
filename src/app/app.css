@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #eef2f7;
+  min-height: 100vh;
+}
+
+/* ================= TOP BAR ================= */
+
+.topbar {
+  background: #1e293b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  margin-left: 24px;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+nav a.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ================= MAIN LAYOUT ================= */
+
+.main-layout {
+  display: grid !important;
+
+  /* LEFT = student list
+     RIGHT = student details */
+  grid-template-columns: minmax(0, 1fr) 360px;
+
+  gap: 20px;
+
+  padding: 24px 32px;
+
+  align-items: start;
+
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Student list */
+.main-layout > app-student-list {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Student details */
+.main-layout > app-student-details {
+  display: block;
+  width: 100%;
+  min-width: 0;
+
+  /* Keep details visible while scrolling */
+  position: sticky;
+  top: 24px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+  .main-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .main-layout > app-student-details {
+    position: static;
+    width: 100%;
+  }
+}

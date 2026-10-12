@@ -1,59 +1,216 @@
-# StudentManagementApp
+# Student Management App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+A simple Angular-based student management dashboard for viewing, searching, and deleting student records. The app presents a list of students in a card layout and displays a detailed information panel when a student is selected.
 
-## Development server
+## Project Overview
 
-To start a local development server, run:
+This project is built using Angular 22 with standalone components and signals for state management. It is designed as a lightweight front-end application that demonstrates a student directory UI with search and detail-view functionality.
+
+## Tech Stack
+
+- Angular 22
+- TypeScript
+- HTML and CSS
+- Standalone Angular components
+- Signals for local state management
+
+## Features
+
+- Display all students in a grid of student cards
+- Search students by:
+  - name
+  - course
+  - roll number
+- View a detailed profile for any student
+- Delete a student from the list
+- Mark students as PASS or FAIL based on marks
+- Responsive layout for desktop and tablet/mobile screens
+- Static dataset for demonstration purposes
+
+## Student Data Model
+
+Each student object contains the following fields:
+
+```ts
+export interface Student {
+  id: string;
+  rollNo: string;
+  name: string;
+  course: string;
+  marks: number;
+  addedOn: string;
+  imgPath: string;
+}
+```
+
+## Application Workflow
+
+### 1. App level state
+The root component stores the complete student list and the currently selected student.
+
+- `students` signal holds the master list of student records
+- `selectedStudent` signal stores the clicked student for detail display
+- `onStudentSelected()` updates the selected record
+- `onDeleteStudent()` removes a student from the list and clears the detail panel if needed
+- `onCloseDetails()` closes the detail section
+
+### 2. Student list panel
+The list screen shows:
+- a header titled “All Students”
+- a search box
+- a grid of student cards rendered using `StudentList`
+
+The `StudentList` component filters students based on:
+- `name`
+- `course`
+- `rollNo`
+
+If no record matches the search, it displays the message:
+
+> No students match your search.
+
+### 3. Student cards
+Each card shows:
+- profile image
+- student name
+- course
+- PASS/FAIL status based on `marks >= 40`
+- marks
+- roll number
+
+Action buttons:
+- View Details
+- Delete
+
+### 4. Details panel
+When a user clicks “View Details”, the app opens a side panel with the student’s full information including:
+- name
+- course
+- marks
+- roll number
+- status
+- added date
+- large profile image
+
+The detail panel also includes a close button to return to the student list.
+
+## Component Structure
+
+```text
+src/
+├── app/
+│   ├── app.ts
+│   ├── app.html
+│   ├── app.css
+│   ├── models/
+│   │   └── Student.ts
+│   ├── student-card/
+│   │   ├── student-card.ts
+│   │   ├── student-card.html
+│   │   ├── student-card.css
+│   ├── student-details/
+│   │   ├── student-details.ts
+│   │   ├── student-details.html
+│   │   ├── student-details.css
+│   └── student-list/
+│       ├── student-list.ts
+│       ├── student-list.html
+│       ├── student-list.css
+├── assets/
+│   └── icons/
+└── index.html
+```
+
+## Functional Behavior
+
+### Pass/Fail Logic
+A student is considered:
+
+- PASS if `marks >= 40`
+- FAIL if `marks < 40`
+
+This status is used in both the student card and the detail section.
+
+### Search Logic
+The filtered list is computed dynamically using a search term. The current implementation matches any student whose:
+
+- name contains the search text
+- course contains the search text
+- roll number contains the search text
+
+The comparison is case-insensitive.
+
+### Delete Logic
+When a student is deleted:
+- the record is removed from the main `students` array
+- if the deleted student was currently selected, the details panel is cleared
+
+## How to Run the Project
+
+### Prerequisites
+
+- Node.js and npm installed
+- Angular CLI installed globally or use the local project setup via `npx`
+
+### Installation
+
+```bash
+npm install
+```
+
+### Start the app
+
+```bash
+npm start
+```
+
+or
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Available Scripts
 
 ```bash
-ng generate --help
+npm start
 ```
-
-## Building
-
-To build the project run:
+Runs the Angular development server.
 
 ```bash
-ng build
+npm run build
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Builds the project for production.
 
 ```bash
-ng test
+npm test
 ```
+Runs the Angular test task.
 
-## Running end-to-end tests
+## Notes
 
-For end-to-end (e2e) testing, run:
+- The application currently uses mock student data defined directly in the root component.
+- There is no backend or database integration at this stage.
+- This is a front-end demonstration project focused on UI behavior and interaction flow.
 
-```bash
-ng e2e
-```
+## Future Enhancements
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Possible improvements for this app include:
 
-## Additional Resources
+- Add Student form
+- Edit student details
+- Local storage persistence
+- Backend API integration
+- Sorting and pagination
+- Admin authentication
+- Dashboard analytics
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Summary
+
+This app demonstrates a clean and functional student management interface built with Angular. It provides a practical example of component composition, signal-driven state updates, search/filtering, delete actions, and a detail view pattern commonly used in admin dashboards.

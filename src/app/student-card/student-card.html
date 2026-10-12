@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-top">
+    <img src="{{ student().imgPath }}" alt="Student Image" class="avatar" />
+    <!-- <div class="avatar">{{ student().name.charAt(0) }}</div> -->
+    <div>
+      <h3>{{ student().name }}</h3>
+      <p class="course-label">{{ student().course }}</p>
+
+      @if (isPass()) {
+        <span class="badge pass">PASS</span>
+      } @else {
+        <span class="badge fail">FAIL</span>
+      }
+    </div>
+  </div>
+
+  <div class="card-stats">
+    <div>
+      <span class="stat-label">Marks</span>
+      <p class="stat-value">{{ student().marks }}</p>
+    </div>
+    <div>
+      <span class="stat-label">Course</span>
+      <p class="stat-value">{{ student().course }}</p>
+    </div>
+    <div>
+      <span class="stat-label">Roll No</span>
+      <p class="stat-value">{{ student().rollNo }}</p>
+    </div>
+  </div>
+
+  <div class="card-actions">
+    <button class="btn btn-view" (click)="onView()">
+      <img class="icon" src="assets/icons/view-img.png" alt="view" />
+      View Details
+    </button>
+    <button class="btn btn-delete" (click)="onDelete()">
+      <img class="icon" src="assets/icons/bin-img.png" alt="delete" />
+      Delete
+    </button>
+  </div>
+</div>
